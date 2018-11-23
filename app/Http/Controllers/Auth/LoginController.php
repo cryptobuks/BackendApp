@@ -35,21 +35,12 @@ class LoginController extends Controller
 
     protected function credentials(Request $request)
     {
-        return ['email' => $request->{$this->username()}, 'password' => $request->password, 'active' => 1];
+        return ['email' => $request->{$this->username()}, 'password' => $request->password];
     }
 
     public function login(Request $request)
     {
-        $this->validateLogin($request);
-
-        if ($this->attemptLogin($request)) {
-            \Session::put('usuario_id', $this->guard()->user()->id);
-            \Session::put('usuario_nombre', $this->guard()->user()->name);
-            \Session::put('usuario_email', $this->guard()->user()->email);
-            return $this->sendLoginResponse($request);
-        }
-
-        return $this->sendFailedLoginResponse($request);
+        return "login no worknig";
     }
 
     public function logout(Request $request)

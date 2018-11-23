@@ -12,7 +12,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'signup']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signup', 'resetPassword', 'validateResetPass']]);
     }
 
     public function login(Request $request)
@@ -24,6 +24,17 @@ class AuthController extends Controller
         }
 
         return response()->json(['error' => 'El Email o la Contraseña No son correctos.'], 401);
+    }
+
+    public function validateResetPass(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if ($token = $this->guard()->attempt($credentials)) {
+            return $this->respondWithToken($token);
+        }
+
+        return response()->json(['error' => 'La Contraseña No Es Correcta, Intente Nuevamente.'], 401);
     }
 
     public function signup(SignUpRequest $request)

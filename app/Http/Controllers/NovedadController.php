@@ -52,12 +52,13 @@ class NovedadController extends Controller
             'asunto' => $asunto,
             'novedad' => $contenido
         ], function ($message) use ($collection) {
-
+            $noreply = "noreply@transitocurumani.com";
+            $pqr = "pqr@ettcurumani.com";
             //$message->from($collection->mail, $collection->name);
-            $message->from('', $collection->name);
+            $message->from($noreply, 'Transito Curumaní');
             //tramites@ettcurumani.com
 
-            $message->to('jsarmientop.inca@gmail.com')
+            $message->to($pqr)
                 ->subject('Novedad ' . $collection->asunto);
         });
     }
